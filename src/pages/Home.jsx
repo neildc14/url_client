@@ -6,11 +6,11 @@ import image from "../assets/images/undraw_link_shortener_mvf6.png";
 const Home = () => {
   return (
     <Container maxW="500px" mx="auto">
-      <Heading as="h1" mt={8} fontSize={{ base: "5xl", lg: "4xl" }}>
+      <Heading as="h1" mt={8} fontSize={{ base: "4xl", lg: "4xl" }}>
         when the shorter
       </Heading>
       <Image src={image} height={{ lg: "350px" }} />
-      <Heading as="h2" fontSize={{ base: "5xl", lg: "4xl" }}>
+      <Heading as="h2" fontSize={{ base: "4xl", lg: "4xl" }}>
         the better
       </Heading>
       <Button
