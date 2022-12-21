@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Heading, Image, Link, Button } from "@chakra-ui/react";
+import { Container, Heading, Image, Link, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import image from "../assets/images/undraw_link_shortener_mvf6.png";
 

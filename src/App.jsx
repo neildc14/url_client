@@ -3,14 +3,14 @@ import "./assets/styles/index.css";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 import Header from "./components/Header";
-import ShortLink from "./pages/ShortLink";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import Archives from "./pages/Archives";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AuthContext from "./context/AuthContext";
+const ShortLink = React.lazy(() => import("./pages/ShortLink"));
 const Home = React.lazy(() => import("./pages/Home"));
+const Archives = React.lazy(() => import("./pages/Archives"));
 
 function App() {
   const queryClient = new QueryClient();
@@ -22,7 +22,7 @@ function App() {
       setUser(userLoggedIn);
     }
   });
-  console.log(user);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={user}>
@@ -42,10 +42,24 @@ function App() {
               <Route path="/login" element={<Login />} />
             </Routes>
             <Routes>
-              <Route path="/archives" element={<Archives />} />
+              <Route
+                path="/archives"
+                element={
+                  <Suspense>
+                    <Archives />
+                  </Suspense>
+                }
+              />
             </Routes>
             <Routes>
-              <Route path="/create" element={<ShortLink />} />  
+              <Route
+                path="/create"
+                element={
+                  <Suspense>
+                    <ShortLink />
+                  </Suspense>
+                }
+              />
             </Routes>
           </Container>
         </div>
