@@ -29,7 +29,20 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
 
   return (
     <>
-      <Card mb={4} p={2}>
+      <Card mb={4} px={2} pt={2} pb={4}>
+        <Flex flexDirection="row" alignItems="center" gap={2}>
+          <Spacer />
+          <IconButton
+            icon={<EditIcon />}
+            aria-label="edit link"
+            onClick={editModalFunction}
+          />
+          <IconButton
+            icon={<DeleteIcon />}
+            aria-label="delete link"
+            onClick={onOpen}
+          />
+        </Flex>
         <HStack mb={6}>
           <Flex flexDirection="row" alignItems="center" gap={2}>
             <AttachmentIcon align="center" />
@@ -44,21 +57,8 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
               {shortened_link}
             </Button>
           </Flex>
-          <Spacer />
-          <Flex flexDirection="row" alignItems="center" gap={2}>
-            <IconButton
-              icon={<EditIcon />}
-              aria-label="edit link"
-              onClick={editModalFunction}
-            />
-            <IconButton
-              icon={<DeleteIcon />}
-              aria-label="delete link"
-              onClick={onOpen}
-            />
-          </Flex>
         </HStack>
-        <HStack height={20} overflow="hidden">
+        <HStack height={24} overflow="hidden">
           <Text overflow="hidden" color="gray.500">
             {original_link}
           </Text>
