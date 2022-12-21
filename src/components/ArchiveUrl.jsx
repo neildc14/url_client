@@ -16,7 +16,7 @@ import EditModal from "./EditModal";
 const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editModal, setEditModal] = useState(false);
-  const shortened_link = `shrinky.onrender.com/${shorten_link}`;
+  const shortened_link = `https://shrinkly.onrender.com/li/${shorten_link}`;
 
   const handleClick = () => {
     window.location.href = original_link;

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/shrink.er/";
+const BASE_URL = "https://shrinkly.onrender.com/" ;
+const localhost = "http://localhost:5000/shrink.er/"
 
 const makeRequest = (method, url, data) => {
   const user = localStorage.getItem("user");
