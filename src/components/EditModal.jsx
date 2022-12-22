@@ -43,7 +43,7 @@ const EditModal = ({ shorten_link, URL, editModal, editModalFunction }) => {
       onClose={editModalFunction}
       isOpen={editModal}
       isCentered
-      size="sm"
+      size="xs"
     >
       <ModalOverlay />
       <ModalContent>

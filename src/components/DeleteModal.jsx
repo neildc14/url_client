@@ -34,7 +34,7 @@ export default function DeleteModal({ onClose, isOpen, shorten_link, URL }) {
         onClose={onClose}
         isOpen={isOpen}
         isCentered
-        size="sm"
+        size="xs"
       >
         <ModalOverlay />
         <ModalContent>
