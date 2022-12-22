@@ -19,6 +19,8 @@ import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import copyToClipBoard from "../utils/copyToClipBoard";
 import ViewFullLinkModal from "./ViewFullLinkModal";
+import { patchRequest } from "../services/makeHTTPRequest";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,6 +28,22 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   const [viewModal, setViewModal] = useState(false);
   const linkRef = useRef(null);
   const shortened_link = `shrinky.onrender.com/li/${shorten_link}`;
+
+  const queryClient = useQueryClient();
+
+  const shareLink = useMutation({
+    mutationFn: patchRequest,
+    onSettled: () => {
+      queryClient.invalidateQueries(["shorten_link"]);
+    },
+  });
+
+  const shareLinkFunction = () => {
+    shareLink.mutate({
+      previous_shorten_link: `li/${shorten_link}`,
+      body: { shared: true },
+    });
+  };
 
   const handleClick = () => {
     window.location.href = original_link;
@@ -41,6 +59,7 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
 
   const copyURL = () => {
     const textToCopy = linkRef?.current.innerText;
+    shareLinkFunction();
     copyToClipBoard(textToCopy);
   };
 
