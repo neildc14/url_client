@@ -13,7 +13,7 @@ const Nav = ({ textAlign = "left", onClose }) => {
   let userCredentials = JSON.parse(user);
   const { setProgress } = useContext(ProgressContext);
 
-  const logOut = () => {
+  const logOut = () => {shrinky.onrender.com/li/OtKb1z
     setProgress(true);
     logoutUser();
   };
