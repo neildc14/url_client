@@ -26,7 +26,6 @@ const Login = () => {
   const loginUser = useMutation({
     mutationFn: postRequest,
     onSuccess: (response) => {
-      console.log(response);
       localStorage.setItem("user", JSON.stringify(response.data));
       window.location.href = "/create";
     },
