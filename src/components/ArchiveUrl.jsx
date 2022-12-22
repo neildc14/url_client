@@ -42,13 +42,19 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
             onClick={onOpen}
           />
         </Flex>
-        <HStack mb={6}>
+        <HStack
+          mb={2}
+          as="span"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace=" nowrap"
+        >
           <Flex flexDirection="row" alignItems="center" gap={2}>
             <AttachmentIcon align="center" />
             <Button
               onClick={handleClick}
               variant="ghost"
-              display="inline-block"
+              display="block"
               p="0"
               _hover={{ bgColor: "none", textDecoration: "underline" }}
               _active={{ color: "teal.300", textDecoration: "underline" }}
@@ -57,8 +63,8 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
             </Button>
           </Flex>
         </HStack>
-        <HStack height={24} overflow="hidden">
-          <Text overflow="hidden" color="gray.500">
+        <HStack height={4} sx={{ overflow: "hidden", whiteSpace: " nowrap" }}>
+          <Text overflow="hidden" color="gray.500" textOverflow="ellipsis">
             {original_link}
           </Text>
         </HStack>
