@@ -25,7 +25,7 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   const [editModal, setEditModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const linkRef = useRef(null);
-  const shortened_link = `shrinkly.onrender.com/li/${shorten_link}`;
+  const shortened_link = `shrinky.onrender.com/li/${shorten_link}`;
 
   const handleClick = () => {
     window.location.href = original_link;

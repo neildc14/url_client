@@ -25,8 +25,7 @@ const ShortenedLink = ({ createdShortURL, isLoading }) => {
   };
 
   const navigateToExternalLink = () => {
-    window.location.href =
-      "https://shrinkly.onrender.com/li/" + createdShortURL;
+    window.location.href = "https://shrinky.onrender.com/li/" + createdShortURL;
   };
 
   return (
@@ -50,7 +49,7 @@ const ShortenedLink = ({ createdShortURL, isLoading }) => {
           ref={linkRef}
           onClick={navigateToExternalLink}
         >
-          {createdShortURL && "shrinkly.onrender.com/li/" + createdShortURL}
+          {createdShortURL && "shrinky.onrender.com/li/" + createdShortURL}
         </Link>
         <Spacer />
         <Button
