@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  HStack,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import ArchiveUrl from "../components/ArchiveUrl";
 import { getRequest } from "../services/makeHTTPRequest";
@@ -26,7 +33,13 @@ const Archives = () => {
         fontWeight="semibold"
         bgColor="teal"
       >
-        URL Archives
+        <HStack>
+          <Box as="span">URL Archives</Box>
+          <Spacer />
+          <Box fontWeight="normal" fontSize="sm">
+            Links:{data?.length}
+          </Box>
+        </HStack>
       </Heading>
       {error && <Text textAlign="center">Unable to fetch URL</Text>}
       <Box as="section">

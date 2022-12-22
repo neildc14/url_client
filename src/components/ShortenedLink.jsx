@@ -11,14 +11,16 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import copyToClipBoard from "../utils/copyToClipBoard";
 
 const ShortenedLink = ({ createdShortURL, isLoading }) => {
   const { colorMode } = useColorMode();
   const linkRef = useRef(null);
   const [copy, setCopy] = useState("Copy");
 
-  const copyToClipBoard = async () => {
-    await navigator.clipboard.writeText(linkRef.current?.innerText);
+  const copyURL = () => {
+    const textToCopy = linkRef.current?.innerText;
+    copyToClipBoard(textToCopy);
     setCopy("Copied ✓");
   };
 
@@ -55,7 +57,7 @@ const ShortenedLink = ({ createdShortURL, isLoading }) => {
           w="100%"
           borderRadius="0"
           display="inline-block"
-          onClick={copyToClipBoard}
+          onClick={copyURL}
         >
           {copy}
         </Button>
