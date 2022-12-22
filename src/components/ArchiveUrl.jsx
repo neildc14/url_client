@@ -92,6 +92,7 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
             overflow="hidden"
             color="gray.500"
             textOverflow="ellipsis"
+            cursor="pointer"
             onClick={viewFullLinkModalFunction}
           >
             {original_link}

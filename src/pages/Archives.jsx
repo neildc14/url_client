@@ -6,6 +6,9 @@ import {
   HStack,
   Spacer,
   Text,
+  Skeleton,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import ArchiveUrl from "../components/ArchiveUrl";
@@ -43,15 +46,21 @@ const Archives = () => {
       </Heading>
       {error && <Text textAlign="center">Unable to fetch URL</Text>}
       <Box as="section">
-        {!isLoading || !isFetching
-          ? data.map(({ _id, original_link, shorten_link }) => (
-              <ArchiveUrl
-                key={_id}
-                original_link={original_link}
-                shorten_link={shorten_link}
-              />
-            ))
-          : null}
+        {isLoading && (
+          <Center>
+            <Spinner size="xl" align="center" />
+          </Center>
+        )}
+
+        <Skeleton fadeDuration={1} isLoaded={!isLoading}>
+          {data?.map(({ _id, original_link, shorten_link }) => (
+            <ArchiveUrl
+              key={_id}
+              original_link={original_link}
+              shorten_link={shorten_link}
+            />
+          ))}
+        </Skeleton>
       </Box>
     </Container>
   );
