@@ -9,12 +9,14 @@ import Archives from "./pages/Archives";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AuthContext from "./context/AuthContext";
+import ProgressContext from "./context/ProgressContext";
 const ShortLink = React.lazy(() => import("./pages/ShortLink"));
 const Home = React.lazy(() => import("./pages/Home"));
 
 function App() {
   const queryClient = new QueryClient();
   const [user, setUser] = useState(null);
+  const [progress, setProgress] = useState(false);
 
   useEffect(() => {
     let userLoggedIn = localStorage.getItem("user");
@@ -26,36 +28,38 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={user}>
-        <div className="App">
-          <Container maxW="5xl" height="100vh">
-            <Header />
-            <Routes>
-              <Route
-                path="/"
-                element={<Suspense>{!user && <Home />}</Suspense>}
-              />
-            </Routes>
-            <Routes>
-              <Route path="/signup" element={<SignUp />} />
-            </Routes>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-            </Routes>
-            <Routes>
-              <Route path="/archives" element={<Archives />} />
-            </Routes>
-            <Routes>
-              <Route
-                path="/create"
-                element={
-                  <Suspense>
-                    <ShortLink />
-                  </Suspense>
-                }
-              />
-            </Routes>
-          </Container>
-        </div>
+        <ProgressContext.Provider value={{ progress, setProgress }}>
+          <div className="App">
+            <Container maxW="5xl" height="100vh">
+              <Header />
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Suspense>{!user && <Home />}</Suspense>}
+                />
+              </Routes>
+              <Routes>
+                <Route path="/signup" element={<SignUp />} />
+              </Routes>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+              </Routes>
+              <Routes>
+                <Route path="/archives" element={<Archives />} />
+              </Routes>
+              <Routes>
+                <Route
+                  path="/create"
+                  element={
+                    <Suspense>
+                      <ShortLink />
+                    </Suspense>
+                  }
+                />
+              </Routes>
+            </Container>
+          </div>
+        </ProgressContext.Provider>
       </AuthContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

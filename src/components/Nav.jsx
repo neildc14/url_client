@@ -6,10 +6,17 @@ import { logoutUser } from "../utils/logout";
 import { IoCreateOutline } from "react-icons/io5";
 import { HiOutlineArchiveBox } from "react-icons/hi2";
 import { BiUserCircle, BiLogOutCircle } from "react-icons/bi";
+import ProgressContext from "../context/ProgressContext";
 
 const Nav = ({ textAlign = "left", onClose }) => {
   const user = useContext(AuthContext);
   let userCredentials = JSON.parse(user);
+  const { setProgress } = useContext(ProgressContext);
+
+  const logOut = () => {
+    setProgress(true);
+    logoutUser();
+  };
 
   return (
     <>
@@ -41,7 +48,7 @@ const Nav = ({ textAlign = "left", onClose }) => {
           </NavLink>
           <NavLink
             textAlign={textAlign}
-            linkFunction={logoutUser}
+            linkFunction={logOut}
             linkName="Logout"
           >
             <Icon as={BiLogOutCircle} boxSize={6} me={2} />
