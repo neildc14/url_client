@@ -26,7 +26,7 @@ const InputLink = ({ linkValue, linkBind, createShortURL }) => {
             Input link to be shortened
           </FormLabel>
         </Center>
-        <Input type="text" ref={inputRef} {...linkBind} />
+        <Input type="text" autoComplete="off" ref={inputRef} {...linkBind} />
       </FormControl>
       <FormControl>
         <Button
