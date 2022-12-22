@@ -18,10 +18,12 @@ import {
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import copyToClipBoard from "../utils/copyToClipBoard";
+import ViewFullLinkModal from "./ViewFullLinkModal";
 
 const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editModal, setEditModal] = useState(false);
+  const [viewModal, setViewModal] = useState(false);
   const linkRef = useRef(null);
   const shortened_link = `shrinkly.onrender.com/li/${shorten_link}`;
 
@@ -31,6 +33,10 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
 
   const editModalFunction = () => {
     setEditModal(!editModal);
+  };
+
+  const viewFullLinkModalFunction = () => {
+    setViewModal(!viewModal);
   };
 
   const copyURL = () => {
@@ -82,7 +88,12 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
           </Flex>
         </HStack>
         <HStack height={4} sx={{ overflow: "hidden", whiteSpace: " nowrap" }}>
-          <Text overflow="hidden" color="gray.500" textOverflow="ellipsis">
+          <Text
+            overflow="hidden"
+            color="gray.500"
+            textOverflow="ellipsis"
+            onClick={viewFullLinkModalFunction}
+          >
             {original_link}
           </Text>
         </HStack>
@@ -100,6 +111,12 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
         URL={original_link}
         editModal={editModal}
         editModalFunction={editModalFunction}
+      />
+      <ViewFullLinkModal
+        URL={original_link}
+        viewModal={viewModal}
+        viewFullLinkModalFunction={viewFullLinkModalFunction}
+        copyURL={copyToClipBoard}
       />
     </>
   );

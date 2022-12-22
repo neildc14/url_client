@@ -55,7 +55,7 @@ const EditModal = ({ shorten_link, URL, editModal, editModalFunction }) => {
               <FormLabel>Original URL</FormLabel>
               <Input {...URLBind} />
             </FormControl>
-            <FormControl mb={4}>
+            <FormControl>
               <FormLabel>Shorten URL</FormLabel>
               <Input {...shortenLinkBind} />
             </FormControl>
