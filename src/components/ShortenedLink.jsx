@@ -25,7 +25,7 @@ const ShortenedLink = ({ createdShortURL, isLoading }) => {
   };
 
   const navigateToExternalLink = () => {
-    window.location.href = "https://shrinky.onrender.com/li/" + createdShortURL;
+    window.open("https://shrinky.onrender.com/li/" + createdShortURL, "_blank");
   };
 
   return (
