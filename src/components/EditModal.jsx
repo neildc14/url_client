@@ -30,6 +30,9 @@ const EditModal = ({ shorten_link, URL, editModal, editModalFunction }) => {
 
   const editURLFunction = (e) => {
     e.preventDefault();
+    if (shortenLinkValue === "") {
+      return;
+    }
     editURL.mutate({
       previous_shorten_link: `li/${shorten_link}`,
       body: { original_link: URLValue, shorten_link: shortenLinkValue },
