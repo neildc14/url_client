@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AuthContext from "./context/AuthContext";
 import ProgressContext from "./context/ProgressContext";
+import PageNotFound from "./pages/PageNotFound";
 const ShortLink = React.lazy(() => import("./pages/ShortLink"));
 const Home = React.lazy(() => import("./pages/Home"));
 
@@ -56,6 +57,9 @@ function App() {
                     </Suspense>
                   }
                 />
+              </Routes>
+              <Routes>
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </Container>
           </div>
