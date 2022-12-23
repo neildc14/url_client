@@ -1,20 +1,19 @@
-import { CopyIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {  DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Flex, IconButton, Spacer } from "@chakra-ui/react";
 import React from "react";
+import ArchiveUrlMenu from "./ArchiveUrlMenu";
 
 const ArchiveButtons = ({
   copyURL,
   editModalFunction,
   deleteModalFunction,
+  linkAccessToOnlyMe,
+  linkAccessToAnyone,
+  shared,
 }) => {
   return (
     <Flex flexDirection="row" alignItems="center" gap={2}>
       <Spacer />
-      <IconButton
-        icon={<CopyIcon />}
-        aria-label="edit link"
-        onClick={copyURL}
-      />
       <IconButton
         icon={<EditIcon />}
         aria-label="edit link"
@@ -24,6 +23,12 @@ const ArchiveButtons = ({
         icon={<DeleteIcon />}
         aria-label="delete link"
         onClick={deleteModalFunction}
+      />
+      <ArchiveUrlMenu
+        copyURL={copyURL}
+        linkAccessToOnlyMe={linkAccessToOnlyMe}
+        linkAccessToAnyone={linkAccessToAnyone}
+        shared={shared}
       />
     </Flex>
   );

@@ -10,7 +10,7 @@ import ArchiveButtons from "./ArchiveButtons";
 import ArchiveOrginalURL from "./ArchiveOrginalURL";
 import ArchiveShortenedURL from "./ArchiveShortenedURL";
 
-const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
+const ArchiveUrl = ({ _id, original_link, shorten_link, shared }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
@@ -25,10 +25,10 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
     },
   });
 
-  const shareLinkFunction = () => {
+  const shareLinkFunction = (restriction) => {
     shareLink.mutate({
       previous_shorten_link: `li/${shorten_link}`,
-      body: { shared: true },
+      body: { shared: restriction },
     });
   };
 
@@ -50,10 +50,16 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
 
   const copyURL = () => {
     const textToCopy = shortened_link;
-    shareLinkFunction();
     copyToClipBoard(textToCopy);
   };
 
+  const linkAccessToOnlyMe = () => {
+    shareLinkFunction(false);
+  };
+
+  const linkAccessToAnyone = () => {
+    shareLinkFunction(true);
+  };
   return (
     <>
       <Card mb={4} px={2} pt={2} pb={4}>
@@ -61,6 +67,9 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
           copyURL={copyURL}
           editModalFunction={editModalFunction}
           deleteModalFunction={deleteModalFunction}
+          linkAccessToOnlyMe={linkAccessToOnlyMe}
+          linkAccessToAnyone={linkAccessToAnyone}
+          shared={shared}
         />
         <ArchiveShortenedURL
           shortened_link={shortened_link}

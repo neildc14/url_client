@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   Box,
   Container,
@@ -52,12 +52,13 @@ const Archives = () => {
           </Center>
         )}
 
-        <Skeleton fadeDuration={1} isLoaded={!isLoading}>
-          {data?.map(({ _id, original_link, shorten_link }) => (
+        <Skeleton fadeDuration={1} isLoaded={!isLoading || !isFetching}>
+          {data?.map(({ _id, original_link, shorten_link, shared }) => (
             <ArchiveUrl
               key={_id}
               original_link={original_link}
               shorten_link={shorten_link}
+              shared={shared}
             />
           ))}
         </Skeleton>
