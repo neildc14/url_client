@@ -1,32 +1,19 @@
-import React, { useState, useRef } from "react";
-import {
-  AttachmentIcon,
-  DeleteIcon,
-  EditIcon,
-  CopyIcon,
-} from "@chakra-ui/icons";
-import {
-  Button,
-  Flex,
-  HStack,
-  Spacer,
-  IconButton,
-  Card,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Card } from "@chakra-ui/react";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import copyToClipBoard from "../utils/copyToClipBoard";
 import ViewFullLinkModal from "./ViewFullLinkModal";
 import { patchRequest } from "../services/makeHTTPRequest";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import ArchiveButtons from "./ArchiveButtons";
+import ArchiveOrginalURL from "./ArchiveOrginalURL";
+import ArchiveShortenedURL from "./ArchiveShortenedURL";
 
 const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
-  const linkRef = useRef(null);
   const shortened_link = `shrinky.onrender.com/li/${shorten_link}`;
 
   const queryClient = useQueryClient();
@@ -45,7 +32,7 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
     });
   };
 
-  const handleClick = () => {
+  const navigateToExternalLink = () => {
     window.location.href = original_link;
   };
 
@@ -53,12 +40,16 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
     setEditModal(!editModal);
   };
 
+  const deleteModalFunction = () => {
+    setDeleteModal(!deleteModal);
+  };
+
   const viewFullLinkModalFunction = () => {
     setViewModal(!viewModal);
   };
 
   const copyURL = () => {
-    const textToCopy = linkRef?.current.innerText;
+    const textToCopy = shortened_link;
     shareLinkFunction();
     copyToClipBoard(textToCopy);
   };
@@ -66,65 +57,27 @@ const ArchiveUrl = ({ _id, original_link, shorten_link }) => {
   return (
     <>
       <Card mb={4} px={2} pt={2} pb={4}>
-        <Flex flexDirection="row" alignItems="center" gap={2}>
-          <Spacer />
-          <IconButton
-            icon={<CopyIcon />}
-            aria-label="edit link"
-            onClick={copyURL}
-          />
-          <IconButton
-            icon={<EditIcon />}
-            aria-label="edit link"
-            onClick={editModalFunction}
-          />
-          <IconButton
-            icon={<DeleteIcon />}
-            aria-label="delete link"
-            onClick={onOpen}
-          />
-        </Flex>
-        <HStack
-          mb={2}
-          as="span"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          whiteSpace=" nowrap"
-        >
-          <Flex flexDirection="row" alignItems="center" gap={2}>
-            <AttachmentIcon align="center" />
-            <Button
-              ref={linkRef}
-              variant="ghost"
-              display="block"
-              p="0"
-              _hover={{ bgColor: "none", textDecoration: "underline" }}
-              _active={{ color: "teal.300", textDecoration: "underline" }}
-              onClick={handleClick}
-            >
-              {shortened_link}
-            </Button>
-          </Flex>
-        </HStack>
-        <HStack height={4} sx={{ overflow: "hidden", whiteSpace: " nowrap" }}>
-          <Text
-            overflow="hidden"
-            color="gray.500"
-            textOverflow="ellipsis"
-            cursor="pointer"
-            onClick={viewFullLinkModalFunction}
-          >
-            {original_link}
-          </Text>
-        </HStack>
+        <ArchiveButtons
+          copyURL={copyURL}
+          editModalFunction={editModalFunction}
+          deleteModalFunction={deleteModalFunction}
+        />
+        <ArchiveShortenedURL
+          shortened_link={shortened_link}
+          navigateToExternalLink={navigateToExternalLink}
+        />
+        <ArchiveOrginalURL
+          original_link={original_link}
+          viewFullLinkModalFunction={viewFullLinkModalFunction}
+        />
       </Card>
 
       <DeleteModal
-        isOpen={isOpen}
-        onClose={onClose}
         id={_id}
         shorten_link={shorten_link}
         URL={shortened_link}
+        deleteModal={deleteModal}
+        deleteModalFunction={deleteModalFunction}
       />
       <EditModal
         shorten_link={shorten_link}

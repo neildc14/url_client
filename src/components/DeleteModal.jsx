@@ -12,7 +12,12 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteRequest } from "../services/makeHTTPRequest";
 
-export default function DeleteModal({ onClose, isOpen, shorten_link, URL }) {
+export default function DeleteModal({
+  deleteModal,
+  deleteModalFunction,
+  shorten_link,
+  URL,
+}) {
   const queryClient = useQueryClient();
 
   const deleteURL = useMutation({
@@ -31,8 +36,8 @@ export default function DeleteModal({ onClose, isOpen, shorten_link, URL }) {
     <div style={{ overflow: "auto" }}>
       <Modal
         blockScrollOnMount={false}
-        onClose={onClose}
-        isOpen={isOpen}
+        onClose={deleteModalFunction}
+        isOpen={deleteModal}
         isCentered
         size="xs"
       >
