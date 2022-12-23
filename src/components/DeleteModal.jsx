@@ -8,6 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteRequest } from "../services/makeHTTPRequest";
@@ -19,11 +20,21 @@ export default function DeleteModal({
   URL,
 }) {
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const deleteURL = useMutation({
     mutationFn: deleteRequest,
     onSettled: () => {
       queryClient.invalidateQueries(["shorten_link"]);
+    },
+    onSuccess: () => {
+      toast({
+        title: "URL deleted.",
+        description: "Your URL is successfully deleted.",
+        status: "success",
+        duration: 700,
+        isClosable: true,
+      });
     },
   });
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card } from "@chakra-ui/react";
+import { Card, useToast } from "@chakra-ui/react";
 import DeleteModal from "./DeleteModal";
 import EditModal from "./EditModal";
 import copyToClipBoard from "../utils/copyToClipBoard";
@@ -17,11 +17,21 @@ const ArchiveUrl = ({ _id, original_link, shorten_link, shared }) => {
   const shortened_link = `shrinky.onrender.com/li/${shorten_link}`;
 
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const shareLink = useMutation({
     mutationFn: patchRequest,
     onSettled: () => {
       queryClient.invalidateQueries(["shorten_link"]);
+    },
+    onSuccess: () => {
+      toast({
+        title: "URL privacy updated.",
+        description: "Your URL privacy has been updated",
+        status: "success",
+        duration: 700,
+        isClosable: true,
+      });
     },
   });
 

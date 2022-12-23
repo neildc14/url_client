@@ -20,7 +20,7 @@ const Archives = () => {
     ["shorten_link", url],
     getRequest,
     {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
     }
   );
 
