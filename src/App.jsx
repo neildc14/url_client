@@ -46,10 +46,7 @@ function App() {
                 <Route path="/login" element={!user && <Login />} />
               </Routes>
               <Routes>
-                <Route
-                  path="/archives"
-                  element={user ? <Archives /> : <Navigate to="/login" />}
-                />
+                <Route path="/archives" element={user && <Archives />} />
               </Routes>
               <Routes>
                 <Route
