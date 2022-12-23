@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import "./assets/styles/index.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 import Header from "./components/Header";
 import SignUp from "./pages/SignUp";
@@ -46,7 +46,10 @@ function App() {
                 <Route path="/login" element={!user && <Login />} />
               </Routes>
               <Routes>
-                <Route path="/archives" element={user && <Archives />} />
+                <Route
+                  path="/archives"
+                  element={user ? <Archives /> : <Navigate to="/login" />}
+                />
               </Routes>
               <Routes>
                 <Route
@@ -57,9 +60,6 @@ function App() {
                     </Suspense>
                   }
                 />
-              </Routes>
-              <Routes>
-                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </Container>
           </div>
