@@ -40,13 +40,13 @@ function App() {
                 />
               </Routes>
               <Routes>
-                <Route path="/signup" element={<SignUp />} />
+                <Route path="/signup" element={!user && <SignUp />} />
               </Routes>
               <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={!user && <Login />} />
               </Routes>
               <Routes>
-                <Route path="/archives" element={<Archives />} />
+                <Route path="/archives" element={user && <Archives />} />
               </Routes>
               <Routes>
                 <Route
